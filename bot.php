@@ -28,6 +28,12 @@ if (isset($cid)) {
 $mysql = $connection->query("SELECT * FROM `users` WHERE `id_tg`=$cid");
 $r = $mysql->fetch_assoc();
 if (($text == "/admin" && $cid == "1529728024") || $data == "adminback") {
+  $redeem60 = count(file('s60.txt'));
+  $redeem325 = count(file('s325.txt'));
+  $redeem660 = count(file('s660.txt'));
+  $redeem1800 = count(file('s1800.txt'));
+  $redeem3850 = count(file('s3850.txt'));
+  $redeem8100 = count(file('s8100.txt'));
   $TG->sendm($cid, "<b>Redeem soni:
 💣 60UC -  $redeem60 💣
 💣 325UC - $redeem325 💣
@@ -77,13 +83,13 @@ if (stripos("$data", "promo||") !== false) {
   $TG->deletem($cid, $mid2);
   $ex = explode('||', $data);
   for ($i = 0; $i < $ex[2]; $i++) {
-      $file = file_get_contents("s" . $ex[1] . ".txt");
-      $exp = explode('
+    $file = file_get_contents("s" . $ex[1] . ".txt");
+    $exp = explode('
 ', $file);
-      $t = str_replace($exp[0] . '
+    $t = str_replace($exp[0] . '
 ', '', $file);
-      file_put_contents("s" . $ex[1] . ".txt", $t);
-      $text .= "<code>$exp[0]</code>\n";
+    file_put_contents("s" . $ex[1] . ".txt", $t);
+    $text .= "<code>$exp[0]</code>\n";
   }
   $TG->sendm($cid, $text . "<b>💚 Code Type: $ex[1]
 🎁 Quantity: $ex[2]</b>", [
