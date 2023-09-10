@@ -1,6 +1,7 @@
 <?php
 include_once("class.tg.php");
 include_once("db.php");
+
 $update = json_decode(file_get_contents('php://input'), true);
 $message = $update["message"];
 $cid = $message["chat"]["id"];
@@ -19,6 +20,20 @@ $data = $cqu["data"];
 $cqid = $cqu["id"];
 $TG = new BotTG();
 
+define("ADMIN_ID", 1529728024);
+
+$redeem60 = count(file('s60.txt'));
+$redeem325 = count(file('s325.txt'));
+$redeem660 = count(file('s660.txt'));
+$redeem1800 = count(file('s1800.txt'));
+$redeem3850 = count(file('s3850.txt'));
+$redeem8100 = count(file('s8100.txt'));
+
+if (!isset($connection)) {
+  echo "Connection failed";
+  die();
+}
+
 if (isset($cid)) {
   $connection->query("INSERT INTO `message_history`(`c_id`,`c_message`) VALUES('$cid','$text')");
 } else {
@@ -27,13 +42,7 @@ if (isset($cid)) {
 }
 $mysql = $connection->query("SELECT * FROM `users` WHERE `id_tg`=$cid");
 $r = $mysql->fetch_assoc();
-if (($text == "/admin" && $cid == "1529728024") || $data == "adminback") {
-  $redeem60 = count(file('s60.txt'));
-  $redeem325 = count(file('s325.txt'));
-  $redeem660 = count(file('s660.txt'));
-  $redeem1800 = count(file('s1800.txt'));
-  $redeem3850 = count(file('s3850.txt'));
-  $redeem8100 = count(file('s8100.txt'));
+if (($text == "/admin" && $cid == ADMIN_ID) || $data == "adminback") {
   $TG->sendm($cid, "<b>Redeem soni:
 💣 60UC -  $redeem60 💣
 💣 325UC - $redeem325 💣
