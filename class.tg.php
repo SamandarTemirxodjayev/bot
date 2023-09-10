@@ -15,7 +15,7 @@ class BotTG
       return json_decode($res);
     }
   }
-  public function sendm($id, $message, $keyboard = "")
+  public function sendMessage(int $id, $message, $keyboard = ""): ?object
   {
     if ($keyboard == !"") {
       return $this->bot('sendMessage', ['chat_id' => $id, 'text' => $message, 'parse_mode' => 'html', 'reply_markup' => json_encode($keyboard)]);
@@ -57,7 +57,7 @@ class BotTG
   public function ustep($id)
   {
     include_once("db.php");
-    return  $connection->query("DELETE FROM `step` WHERE `step`.`id_tg` = $id");
+    return $connection->query("DELETE FROM `step` WHERE `step`.`id_tg` = $id");
   }
   public function sendp($id, $url, $message, $keyboard = "")
   {
