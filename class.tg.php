@@ -1,5 +1,5 @@
 <?php
-class tgBot
+class BotTG
 {
   private function bot($method, array $datas = [])
   {
@@ -45,19 +45,19 @@ class tgBot
   }
   public function step($id, $value)
   {
-    include("inc/db.php");
-    $result = mysqli_query($connection, "SELECT * FROM `step` WHERE id_tg=$id");
+    include_once("db.php");
+    $result = $connection->query("SELECT * FROM `step` WHERE id_tg=$id");
     $food = mysqli_fetch_assoc($result);
     if ($food['id_tg'] == !"") {
-      return mysqli_query($connection, "UPDATE step SET value='$value' WHERE id_tg='$id'");
+      return $connection->query("UPDATE step SET value='$value' WHERE id_tg='$id'");
     } else {
-      return mysqli_query($connection, "INSERT INTO `step`(`id_tg`,`value`) VALUES ('$id','$value')");
+      return $connection->query("INSERT INTO step(id_tg,value) VALUES('$id','$value')");
     }
   }
   public function ustep($id)
   {
-    include("inc/db.php");
-    return mysqli_query($connection, "DELETE FROM `step` WHERE `step`.`id_tg` = $id");
+    include_once("db.php");
+    return  $connection->query("DELETE FROM `step` WHERE `step`.`id_tg` = $id");
   }
   public function sendp($id, $url, $message, $keyboard = "")
   {
