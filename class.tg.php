@@ -15,7 +15,7 @@ class BotTG
       return json_decode($res);
     }
   }
-  public function sendMessage(int $id, $message, $keyboard = ""): ?object
+  public function sendMessage($id, $message, $keyboard = "")
   {
     if ($keyboard == !"") {
       return $this->bot('sendMessage', ['chat_id' => $id, 'text' => $message, 'parse_mode' => 'html', 'reply_markup' => json_encode($keyboard)]);
